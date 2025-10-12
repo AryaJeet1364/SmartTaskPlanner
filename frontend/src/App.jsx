@@ -1,155 +1,12 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import GoalInput from "./components/GoalInput";
-// import TaskList from "./components/TaskList";
-
-// const API_URL = "http://localhost:5000/api";
-
-// export default function App() {
-//   const [goals, setGoals] = useState([]);
-//   const [loading, setLoading] = useState(false);
-
-//   const fetchGoals = async () => {
-//     const res = await axios.get(`${API_URL}/goals`);
-//     setGoals(res.data.data);
-//   };
-
-//   const handleSubmitGoal = async (goal) => {
-//     setLoading(true);
-//     const res = await axios.post(`${API_URL}/plan`, { goal });
-//     setGoals([res.data.data, ...goals]);
-//     setLoading(false);
-//   };
-
-//   useEffect(() => {
-//     fetchGoals();
-//   }, []);
-
-//   return (
-//     <div className="min-h-screen bg-gray-100 p-6">
-//       <h1 className="text-3xl font-bold text-center mb-4">
-//         🧠 Smart Task Planner
-//       </h1>
-//       <GoalInput onSubmit={handleSubmitGoal} loading={loading} />
-//       <div className="mt-6 space-y-4">
-//         {goals.map((item) => (
-//           <TaskList key={item._id} goal={item.goal} plan={item.plan} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import { Zap, Target } from "lucide-react";
-// import GoalInput from "./components/GoalInput";
-// import TaskList from "./components/TaskList";
-
-// const API_URL = "http://localhost:5000/api";
-
-// export default function App() {
-//   const [goals, setGoals] = useState([]);
-//   const [loading, setLoading] = useState(false);
-
-//   const fetchGoals = async () => {
-//     try {
-//       const res = await axios.get(`${API_URL}/goals`);
-//       setGoals(res.data.data);
-//     } catch (error) {
-//       console.error("Error fetching goals:", error);
-//     }
-//   };
-
-//   const handleSubmitGoal = async (goal) => {
-//     setLoading(true);
-//     try {
-//       const res = await axios.post(`${API_URL}/plan`, { goal });
-//       setGoals([res.data.data, ...goals]);
-//     } catch (error) {
-//       console.error("Error submitting goal:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchGoals();
-//   }, []);
-
-//   return (
-//     <div className="min-h-screen bg-black relative overflow-hidden">
-//       {/* Animated Background Orbs */}
-//       <div className="fixed inset-0 z-0">
-//         <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/20 rounded-full blur-3xl animate-pulse"></div>
-//         <div
-//           className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl animate-pulse"
-//           style={{ animationDelay: "1s" }}
-//         ></div>
-//         <div
-//           className="absolute bottom-0 left-1/2 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse"
-//           style={{ animationDelay: "2s" }}
-//         ></div>
-//       </div>
-
-//       {/* Content Layer */}
-//       <div className="relative z-10">
-//         {/* Header Section */}
-//         <div className="border-b border-red-500/30 backdrop-blur-md bg-black/50">
-//           <div className="max-w-7xl mx-auto px-6 py-12">
-//             <div className="flex items-center justify-center gap-3 mb-2">
-//               <Zap className="w-10 h-10 text-red-500 animate-bounce" />
-//               <h1 className="text-5xl font-black bg-gradient-to-r from-red-500 via-violet-500 to-red-400 bg-clip-text text-transparent">
-//                 NEXUS PLANNER
-//               </h1>
-//               <Target
-//                 className="w-10 h-10 text-violet-500 animate-bounce"
-//                 style={{ animationDelay: "0.2s" }}
-//               />
-//             </div>
-//             <p className="text-center text-violet-400/80 text-sm tracking-widest uppercase font-light">
-//               AI-Powered Strategic Task Intelligence
-//             </p>
-//           </div>
-//         </div>
-
-//         {/* Main Content */}
-//         <div className="max-w-7xl mx-auto px-6 py-12">
-//           {/* Input Component */}
-//           <GoalInput onSubmit={handleSubmitGoal} loading={loading} />
-
-//           {/* Goals Grid */}
-//           <div className="space-y-6">
-//             {goals.length > 0 ? (
-//               goals.map((item) => (
-//                 <TaskList key={item._id} goal={item.goal} plan={item.plan} />
-//               ))
-//             ) : (
-//               <div className="text-center py-16">
-//                 <Zap className="w-16 h-16 text-violet-500/30 mx-auto mb-4" />
-//                 <p className="text-violet-400/50 text-lg font-light tracking-wide">
-//                   No goals yet. Create your first plan to get started! ⚡
-//                 </p>
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { Zap, Target, Search, Trash2, ChevronDown } from "lucide-react";
 import GoalInput from "./components/GoalInput";
 import TaskList from "./components/TaskList";
 
-const API_URL = "http://localhost:5000/api";
+// const API_URL = "http://localhost:5000/api";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export default function App() {
   const [goals, setGoals] = useState([]);
@@ -158,7 +15,6 @@ export default function App() {
   const [expandedId, setExpandedId] = useState(null);
   const [error, setError] = useState(null);
 
-  // Fetch all goals on mount
   useEffect(() => {
     fetchGoals();
   }, []);
@@ -219,7 +75,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div
@@ -232,9 +87,7 @@ export default function App() {
         ></div>
       </div>
 
-      {/* Content */}
       <div className="relative z-10">
-        {/* Header */}
         <div className="border-b border-red-500/30 backdrop-blur-md bg-black/50 sticky top-0 z-20">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="flex items-center justify-center gap-3 mb-2">
@@ -253,19 +106,15 @@ export default function App() {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="max-w-7xl mx-auto px-6 py-12">
-          {/* Error Message */}
           {error && (
             <div className="mb-6 p-4 bg-red-600/20 border border-red-500/50 rounded-lg text-red-400 text-sm">
               ⚠️ {error}
             </div>
           )}
 
-          {/* Goal Input */}
           <GoalInput onSubmit={handleSubmitGoal} loading={loading} />
 
-          {/* Search Section */}
           <div className="mb-8">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-violet-500" />
@@ -285,14 +134,12 @@ export default function App() {
             )}
           </div>
 
-          {/* Goals Grid */}
           <div className="space-y-4">
             {filteredGoals.length > 0 ? (
               filteredGoals.map((item) => (
                 <div key={item._id} className="group relative">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-600 to-red-600 rounded-2xl blur opacity-40 group-hover:opacity-80 transition duration-300"></div>
                   <div className="relative bg-black/80 backdrop-blur rounded-2xl border border-violet-500/20 group-hover:border-red-500/40 transition-all duration-300 overflow-hidden">
-                    {/* Collapsible Header */}
                     <div
                       className="p-6 flex items-center justify-between gap-4 cursor-pointer hover:bg-black/40 transition"
                       onClick={() => toggleExpanded(item._id)}
@@ -328,7 +175,6 @@ export default function App() {
                       </button>
                     </div>
 
-                    {/* Expandable Details */}
                     {expandedId === item._id && (
                       <div className="border-t border-violet-500/20 p-6">
                         <TaskList goal={item.goal} plan={item.plan} />
@@ -349,7 +195,6 @@ export default function App() {
             )}
           </div>
 
-          {/* Stats Footer */}
           {goals.length > 0 && (
             <div className="mt-12 pt-8 border-t border-violet-500/20 text-center">
               <p className="text-violet-400/60 text-sm">

@@ -3,7 +3,7 @@ const Goal = require("../models/Goal");
 const buildPrompt = require("../utils/buildPrompt");
 const { generatePlan } = require("../services/geminiService");
 
-// POST - Generate Plan
+// Generate Plan
 exports.createPlan = async (req, res) => {
   try {
     const { goal } = req.body;
@@ -33,7 +33,7 @@ exports.createPlan = async (req, res) => {
   }
 };
 
-// GET - Fetch All Goals
+// Fetch All Goals
 exports.getGoals = async (req, res) => {
   try {
     const goals = await Goal.find().sort({ createdAt: -1 });
@@ -50,7 +50,7 @@ exports.getGoals = async (req, res) => {
   }
 };
 
-// GET - Fetch Single Goal
+// Fetch Single Goal
 exports.getGoalById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -77,7 +77,7 @@ exports.getGoalById = async (req, res) => {
   }
 };
 
-// DELETE - Delete Goal
+// Delete Goal
 exports.deleteGoal = async (req, res) => {
   try {
     const { id } = req.params;

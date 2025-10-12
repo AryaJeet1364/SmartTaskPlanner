@@ -7,7 +7,6 @@ const {
   deleteGoal,
 } = require("../controllers/goalController");
 
-// Routes
 router.post("/plan", createPlan);
 router.get("/goals", getGoals);
 router.get("/goals/:id", getGoalById);
