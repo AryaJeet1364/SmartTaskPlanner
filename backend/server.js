@@ -11,11 +11,26 @@ const PORT = process.env.PORT || 5000;
 
 // app.use(cors());
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173", // for local dev
+];
+
 app.use(
   cors({
-    origin: '*'
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
+
 
 app.use(express.json());
 
@@ -35,9 +50,3 @@ app.use((err, req, res, next) => {
     error: err.message,
   });
 });
-
-// app.listen(PORT, () => {
-//   console.log(`\n🚀 NEXUS PLANNER Backend Running`);
-//   console.log(`📡 Server: http://localhost:${PORT}`);
-//   console.log(`🔌 API: http://localhost:${PORT}/api`);
-// });
