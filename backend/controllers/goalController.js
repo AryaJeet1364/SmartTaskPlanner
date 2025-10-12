@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const connectDB = require("./config/db");
 const Goal = require("../models/Goal");
 const buildPrompt = require("../utils/buildPrompt");
 const { generatePlan } = require("../services/geminiService");
@@ -6,6 +7,7 @@ const { generatePlan } = require("../services/geminiService");
 // Generate Plan
 exports.createPlan = async (req, res) => {
   try {
+    await connectDB();
     const { goal } = req.body;
 
     if (!goal || goal.trim().length === 0) {
@@ -36,6 +38,7 @@ exports.createPlan = async (req, res) => {
 // Fetch All Goals
 exports.getGoals = async (req, res) => {
   try {
+    await connectDB();
     const goals = await Goal.find().sort({ createdAt: -1 });
     console.log(`📋 Fetched ${goals.length} goals`);
     res.json({ success: true, data: goals });
@@ -53,6 +56,7 @@ exports.getGoals = async (req, res) => {
 // Fetch Single Goal
 exports.getGoalById = async (req, res) => {
   try {
+    await connectDB();
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id))
       return res
@@ -80,6 +84,7 @@ exports.getGoalById = async (req, res) => {
 // Delete Goal
 exports.deleteGoal = async (req, res) => {
   try {
+    await connectDB();
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id))
       return res

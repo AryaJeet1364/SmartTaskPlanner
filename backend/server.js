@@ -24,10 +24,10 @@ const allowedOrigins = [
   "https://smart-task-planner-a2l6.vercel.app",
 ].filter(Boolean); // removes any undefined
 
-app.use((req, res, next) => {
-  console.log("Origin header:", req.headers.origin);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Origin header:", req.headers.origin);
+//   next();
+// });
 
 
 app.use(
