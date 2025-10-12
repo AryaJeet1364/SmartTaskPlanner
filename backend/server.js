@@ -18,11 +18,11 @@ const PORT = process.env.PORT || 5000;
 //   "https://smart-task-planner-a2l6.vercel.app", // add your deployed frontend
 // ];
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL?.replace(/\/$/, ""),
-  "http://localhost:5173",
-  "https://smart-task-planner-a2l6.vercel.app",
-].filter(Boolean); // removes any undefined
+// const allowedOrigins = [
+//   process.env.FRONTEND_URL?.replace(/\/$/, ""),
+//   "http://localhost:5173",
+//   "https://smart-task-planner-a2l6.vercel.app",
+// ].filter(Boolean); // removes any undefined
 
 // app.use((req, res, next) => {
 //   console.log("Origin header:", req.headers.origin);
@@ -30,17 +30,29 @@ const allowedOrigins = [
 // });
 
 
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) callback(null, true);
+//       else callback(new Error("CORS not allowed"));
+//     },
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   })
+// );
+
+
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-      else callback(new Error("CORS not allowed"));
-    },
+    origin:
+      process.env.FRONTEND_URL || "https://smart-task-planner-a2l6.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 
 // app.options(
 //   "*",
