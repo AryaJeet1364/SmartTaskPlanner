@@ -11,23 +11,24 @@ const PORT = process.env.PORT || 5000;
 
 // app.use(cors());
 
-const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:5173"];
+const allowedOrigins = [
+  process.env.FRONTEND_URL.replace(/\/$/, ""), // remove trailing slash
+  "http://localhost:5173",
+  "https://smart-task-planner-a2l6.vercel.app", // add your deployed frontend
+];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.error("❌ CORS blocked for origin:", origin);
-        callback(new Error("CORS not allowed"));
-      }
+      if (!origin || allowedOrigins.includes(origin)) callback(null, true);
+      else callback(new Error("CORS not allowed"));
     },
-    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 
 // ✅ Handle preflight requests explicitly
 // app.options("*", cors());
