@@ -34,6 +34,3 @@ app.use((err, req, res, next) => {
 //   console.log(`📡 Server: http://localhost:${PORT}`);
 //   console.log(`🔌 API: http://localhost:${PORT}/api`);
 // });
-
-
-module.exports = app
