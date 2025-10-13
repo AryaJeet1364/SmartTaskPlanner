@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const serverless = require("serverless-http");
+// const serverless = require("serverless-http");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const goalRoutes = require("./routes/goalRoutes");
@@ -77,7 +77,7 @@ connectDB();
 app.use("/api", goalRoutes);
 
 app.get("/api/health", (req, res) => {
-  res.json({ success: true, message: "Server is running ✅" });
+  res.json({ success: true, message: "Server is running on {PORT}" });
 });
 
 app.use((err, req, res, next) => {
@@ -90,4 +90,4 @@ app.use((err, req, res, next) => {
 });
 
 
-module.exports = serverless(app);
+module.exports = app;
