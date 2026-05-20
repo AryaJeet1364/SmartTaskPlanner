@@ -31,7 +31,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const generatePlan = async (prompt) => {
   const result = await groq.chat.completions.create({
     messages: [{ role: "user", content: prompt }],
-    model: "llama3-8b-8192",
+    model: "llama-3.3-70b-versatile",
   });
 
   const text = result.choices[0].message.content;
